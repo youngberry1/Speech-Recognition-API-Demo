@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Speech Recognition Demo</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            max-width: 900px;
+            margin: 32px auto;
+            padding: 12px;
+            line-height: 1.4;
+            color: #111;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+
+        button {
+            padding: 8px 14px;
+            border-radius: 6px;
+            border: 1px solid #bbb;
+            background: #f6f6f6;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        button.primary {
+            background: #0b78d1;
+            color: white;
+            border-color: #0b78d1;
+        }
+
+        .status {
+            font-size: .95rem;
+            color: #444;
+            margin-left: 8px;
+        }
+
+        .box {
+            border: 1px solid #e0e0e0;
+            padding: 12px;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+        }
+
+        .label {
+            font-size: .9rem;
+            color: #666;
+            margin-bottom: 6px;
+        }
+
+        #final,
+        #interim {
+            min-height: 48px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+        }
+
+        #interim {
+            color: #666;
+            opacity: .9;
+        }
+
+        .note {
+            color: #666;
+            font-size: .9rem;
+            margin-top: 10px;
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        select {
+            padding: 6px 8px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Speech Recognition Demo</h1>
+
+    <p class="note">This uses the Web Speech API (SpeechRecognition). Works best in Chromium-based browsers. Requires
+        HTTPS (or <code>http://localhost</code>) and a user gesture to start.</p>
+
+    <div class="controls">
+        <button id="startBtn" class="primary">Start</button>
+        <button id="stopBtn">Stop</button>
+        <div class="status" id="status">Status: <strong>idle</strong></div>
+    </div>
+
+    <div class="row">
+        <div>
+            <div class="label">Language</div>
+            <select id="langSelect">
+                <option value="en-US">English — US (en-US)</option>
+                <option value="en-GB">English — UK (en-GB)</option>
+                <option value="es-ES">Spanish — Spain (es-ES)</option>
+                <option value="fr-FR">French — France (fr-FR)</option>
+                <option value="auto">Auto (default)</option>
+            </select>
+        </div>
+
+        <div>
+            <div class="label">Mode</div>
+            <select id="modeSelect">
+                <option value="continuous">Continuous (keep listening)</option>
+                <option value="single">Single (stop after first final)</option>
+            </select>
+        </div>
+
+        <div>
+            <div class="label">Interim results</div>
+            <select id="interimSelect">
+                <option value="true">Enabled</option>
+                <option value="false">Disabled</option>
+            </select>
+        </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr; gap:12px; margin-top:12px;">
+        <div class="box">
+            <div class="label">Final transcript (accumulated)</div>
+            <div id="final"></div>
+        </div>
+
+        <div class="box">
+            <div class="label">Interim transcript (live)</div>
+            <div id="interim"></div>
+        </div>
+    </div>
+
+    <div class="note">
+        <strong>Tip:</strong> Click <em>Start</em> to allow the microphone. If recognition stops unexpectedly, check the
+        console for errors (permissions, network, or browser limitations).
+    </div>
+
+    <script src="./script.js">
+
+    </script>
+</body>
+
+</html>
